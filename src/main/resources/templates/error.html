@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Supplier Details Updater</title>
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web:400,300,700&amp;subset=latin,latin-ext" />
+
+<link rel="stylesheet" href="css/bootstrap-ui.min.css" />
+</head>
+
+<body class="site">
+	<header role="banner" class="site-header">
+		<!-- Main navigation -->
+		<nav class="navbar navbar-static-top navbar-primary">
+			<div class="container">
+				<!-- Brand and menu toggle -->
+				<div class="navbar-header">
+					<a th:href="@{/}" class="navbar-brand offset-right-large"
+						title="GST Supplier Detail Updater">GST - Supplier Details Updater</a>
+				</div>
+			</div>
+			<!-- .container -->
+		</nav>
+	</header>
+
+	<main role="main" class="site-content">
+	<div class="jumbotron">
+		<div class="container">
+			
+			<div class="alert alert-error fade in">
+			    <span class="glyphicon glyphicon-warning-sign offset-right" aria-hidden="true"></span>
+			    Ooops...... something bad happened ....!! Please try again after some time.
+			</div>
+			<a th:href="@{/}" class="btn btn-primary">Got to Homepage</a>
+		</div>
+	</div>
+	</main>
+
+	<footer role="contentinfo" class="site-footer navbar-primary">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					© CopyRight,All Rights Reserved 2017
+				</div>
+			</div>
+			<!-- .row -->
+		</div>
+		<!-- .container -->
+	</footer>
+</body>
+
+<!-- External JS dependencies -->
+<script src="js/jquery.min.js"></script>
+<script src="js/moment-with-locales.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/select2.min.js"></script>
+<!-- Bootstrap UI JS -->
+<script src="js/bootstrap-ui.min.js"></script>
+
+</html>

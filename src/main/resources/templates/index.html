@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Supplier Details Updater</title>
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web:400,300,700&amp;subset=latin,latin-ext" />
+
+<link rel="stylesheet" href="css/bootstrap-ui.min.css" />
+<style type="text/css">
+	.jumbotron p {font-size: 15px;}
+</style>
+</head>
+
+<body class="site">
+	<header role="banner" class="site-header">
+		<!-- Main navigation -->
+		<nav class="navbar navbar-static-top navbar-primary">
+			<div class="container">
+				<!-- Brand and menu toggle -->
+				<div class="navbar-header">
+					<a th:href="@{/}" class="navbar-brand offset-right-large"
+						title="GST Supplier Detail Updater">GST - Supplier Details Updater</a>
+				</div>
+			</div>
+			<!-- .container -->
+		</nav>
+	</header>
+
+	<main role="main" class="site-content">
+	<div class="jumbotron">
+		<div class="container-fluid">
+		 <form class="form-horizontal" th:action="@{/}" th:object="${userForm}" method="post">
+		 <div class="container">
+		 <div class="well">
+		 	<div class="well well-sm">
+		 		<div class="alert alert-error alert-dismissible fade in" th:if="${#fields.hasErrors('panNo')}">
+				    <button type="button" class="close" data-dismiss="alert">&times;</button>
+				    <span class="glyphicon glyphicon-warning-sign offset-right" aria-hidden="true"></span><b th:errors="*{panNo}"></b>
+				</div>
+				
+				<div class="input-group">
+				    <input placeholder="PAN Number" class="form-control validate" title="Enter your PAN Number to search" id="panNo" type="text"
+										th:field="*{panNo}" style="text-transform: uppercase" /> 
+				    <span class="input-group-btn">
+				        <button type="submit" class="btn btn-primary btn-raised" name="search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search Supplier Detail Using PAN Number</button> 
+				    </span>
+				</div>
+		 	</div>
+		 	
+		 	
+
+				<div role="alert" class="alert alert-success alert-dismissible alert-full fade in" th:if="${success != null}">
+				    <button type="button" class="close" data-dismiss="alert">&times;</button>
+				    <div class="container">
+				        <span class="glyphicon glyphicon-ok-sign offset-right" aria-hidden="true"></span>
+				        <b th:text="${success}"></b>
+				    </div>
+				</div>
+				
+				<div class="alert alert-error alert-dismissible fade in" th:if="${failed != null}">
+				    <button type="button" class="close" data-dismiss="alert">&times;</button>
+				    <span class="glyphicon glyphicon-warning-sign offset-right" aria-hidden="true"></span>
+				    <b th:text="${failed}"></b>
+				</div>
+		 	
+		 	<!-- supplier info panel start -->
+		 	
+		 	<div class="panel panel-success" th:if="${userForm.supplierInfo !=null}">
+					<div class="panel-heading panel-heading-extended">
+						<h5 class="panel-title panel-title-subtitle">Supplier Info linked to PAN No : <b th:text="*{panNo}"></b></h5>
+					</div>
+					<div class="panel-body">
+					
+						<div class="well well-sm" th:if="${gstErr != null || dateErr != null}">
+					 		<div class="alert alert-error alert-dismissible fade in">
+							    <button type="button" class="close" data-dismiss="alert">&times;</button>
+							    <span class="glyphicon glyphicon-warning-sign offset-right" aria-hidden="true"></span><b th:text="${gstErr != null ? gstErr : dateErr}"></b>
+							</div>
+					 	</div>
+					
+						  <div class="form-group">
+						    <label class="col-sm-2 control-label">Supplier No</label>
+						    <div class="col-sm-2">
+						      <p class="form-control-static" th:text="${userForm.supplierInfo.supplierNo}"></p>
+						    </div>
+						    
+						    <label class="col-sm-2 control-label">Supplier Name</label>
+						    <div class="col-sm-6">
+						      <p class="form-control-static" th:text="${userForm.supplierInfo.supplierName}"></p>
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label class="col-sm-2 control-label">Vendor Site Code</label>
+						    <div class="col-sm-2">
+						      <p class="form-control-static" th:text="${userForm.supplierInfo.vendorSiteCode}"></p>
+						    </div>
+						    
+						    <label class="col-sm-2 control-label">Site RAO</label>
+						    <div class="col-sm-6">
+						      <p class="form-control-static" th:text="${userForm.supplierInfo.siteRao}"></p>
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label class="col-sm-2 control-label">PAN No.</label>
+						    <div class="col-sm-2">
+						      <p class="form-control-static" th:text="${userForm.supplierInfo.panNo}"></p>
+						    </div>
+						    
+						    <label class="col-sm-2 control-label">Address</label>
+						    <div class="col-sm-6">
+						      <p class="form-control-static" th:text="${userForm.supplierInfo.address}"></p>
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label class="col-sm-2 control-label">Bank</label>
+						    <div class="col-sm-2">
+						      <p class="form-control-static" th:text="${userForm.supplierInfo.bank}"></p>
+						    </div>
+						    
+						    <label class="col-sm-2 control-label">Branch</label>
+						    <div class="col-sm-6">
+						      <p class="form-control-static" th:text="${userForm.supplierInfo.branch}"></p>
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label class="col-sm-2 control-label">IFSC</label>
+						    <div class="col-sm-2">
+						      <p class="form-control-static" th:text="${userForm.supplierInfo.ifsc}"></p>
+						    </div>
+						    
+						    <label class="col-sm-2 control-label">Bank A/C No.</label>
+						    <div class="col-sm-6">
+						      <p class="form-control-static" th:text="${userForm.supplierInfo.bankACNo}"></p>
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label class="col-sm-2 control-label">GST No.</label>
+						    <div class="col-sm-3">
+						      <input type="text" class="form-control" name="gstinNo" placeholder="GST No" th:value="${userForm.supplierInfo.gstinNo}"/>
+						    </div>
+						    
+						    <label class="col-sm-2 control-label">Date and Time</label>
+						    <div class="col-sm-3">
+						       <div class="form-group">
+						            <div class="input-group date" data-onload-datetimepicker id="datetimepicker">
+						                <input type="text" class="form-control" name="date"/>
+						                <span class="input-group-addon">
+						                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+						                </span>
+						            </div>
+						        </div>
+						    </div>
+						  </div>
+						 
+						  <div class="form-group">
+						  		<div class="col-sm-5"></div>
+						  		<div class="btn-group" role="group">
+								    <button type="submit" class="btn btn-primary" name="update">
+								    <span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span> Update</button>
+								</div>
+						  </div>
+						  		
+					</div>
+				</div>
+		 	<!-- supplier info panel end -->
+		 	</div>
+		 </div>	
+				</form>
+		</div>
+	</div>
+		<input type="hidden" th:value="${formatedDate}" id="formatedDate" />
+	</main>
+
+	<footer role="contentinfo" class="site-footer navbar-primary">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					© CopyRight,All Rights Reserved 2017
+				</div>
+			</div>
+			<!-- .row -->
+		</div>
+		<!-- .container -->
+	</footer>
+</body>
+
+<!-- External JS dependencies -->
+<script src="js/jquery.min.js"></script>
+<script src="js/moment-with-locales.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/select2.min.js"></script>
+<!-- Bootstrap UI JS -->
+<script src="js/bootstrap-ui.min.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+			var date = $('#formatedDate').val();
+		    if(date) {
+		    	$('#datetimepicker').data("DateTimePicker").date(date);
+		    }
+		});
+	</script>
+</html>

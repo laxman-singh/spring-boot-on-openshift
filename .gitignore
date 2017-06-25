@@ -2,3 +2,7 @@
 .project
 .settings/
 target/
+.git
+.mvn
+mvnw
+mvnw.cmd

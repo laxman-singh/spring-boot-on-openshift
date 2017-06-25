@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Supplier Details Updater</title>
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web:400,300,700&amp;subset=latin,latin-ext" />
+
+<link rel="stylesheet" href="css/bootstrap-ui.min.css" />
+</head>
+
+<body class="site">
+	<header role="banner" class="site-header">
+		<!-- Main navigation -->
+		<nav class="navbar navbar-static-top navbar-primary">
+			<div class="container">
+				<!-- Brand and menu toggle -->
+				<div class="navbar-header">
+					<a href="#" class="navbar-brand offset-right-large"
+						title="GST Supplier Detail Updater">GST - Supplier Details Updater</a>
+				</div>
+			</div>
+			<!-- .container -->
+		</nav>
+	</header>
+
+	<main role="main" class="site-content">
+	<div class="jumbotron">
+		<div class="container-fluid">
+		 <form action="#" th:action="@{/}" th:object="${userForm}" method="post">
+				<div class="panel panel-primary">
+					<div class="panel-heading panel-heading-extended">
+						<div class="alert alert-error alert-dismissible fade in"  th:if="${#fields.hasErrors('panNo')}" th:errors="*{panNo}">
+						    <button type="button" class="close" data-dismiss="alert">&times;</button>
+						    <span class="glyphicon glyphicon-warning-sign offset-right" aria-hidden="true"></span>
+						</div>
+						
+						<div class="input-group">
+						    <input placeholder="PAN Number" class="form-control validate" title="Enter your PAN Number to search" id="panNo" type="text"
+												th:field="*{panNo}" style="text-transform: uppercase" /> 
+						    <span class="input-group-btn">
+						        <button type="submit" class="btn btn-primary btn-raised"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search Supplier Detail Using PAN Number</button> 
+						    </span>
+						</div>
+					</div>
+					<div class="panel-body">
+
+							<div class="table-responsive" th:if="${not #lists.isEmpty(userForm.supplierInfoList)}">
+							    <table class="table table-hover">
+							        <thead>
+							            <tr>
+							                <th class="table-cell-id">#</th>
+							                <th>Supplier No</th>
+							                <th>Supplier Name</th>
+							                <th>Vendor Site Code</th>
+							                <th>Site RAO</th>
+							                <th>PAN</th>
+							                <th>Address</th>
+							                <th>Bank</th>
+							                <th>Branch</th>
+							                <th>IFSC</th>
+							                <th>Bank A/C No</th>
+							                <th>GSTIN No</th>
+							                <th>Date and Time</th>
+							                <th>Action</th>
+							            </tr>
+							        </thead>
+							        <tbody>
+							            <tr th:each="supplierInfo,indx : ${userForm.supplierInfoList}">
+							                <th th:text="${indx.count}"></th>
+							                <td th:text="${supplierInfo.supplierNo}"></td>
+							                <td th:text="${supplierInfo.supplierName}"></td>
+							                <td th:text="${supplierInfo.vendorSiteCode}"></td>
+							                <td th:text="${supplierInfo.siteRao}"></td>
+							                <td th:text="${supplierInfo.panNo}"></td>
+							                <td th:text="${supplierInfo.address}"></td>
+							                <td th:text="${supplierInfo.bank}"></td>
+							                <td th:text="${supplierInfo.branch}"></td>
+							                <td th:text="${supplierInfo.ifsc}"></td>
+							                <td th:text="${supplierInfo.bankACNo}"></td>
+							                <td>
+												<input type="text" class="form-control" id="gstinNo" name="gstinNo" />
+							                </td>
+							                <td>
+							                	<div class="form-group">
+										            <div class="input-group date" data-onload-datetimepicker>
+										                <input type="text" class="form-control" id="date" name="date"/>
+										                <span class="input-group-addon">
+										                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+										                </span>
+										            </div>
+										        </div>
+										    </td>
+							                <td class="table-cell-actions">
+							                    <button type="button" class="btn btn-primary" id="updateBtn">
+							                        <span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span> Update
+							                    </button>
+							                </td>
+							            </tr>
+							        </tbody>
+							    </table>
+							</div>						
+					</div>
+					<div class="panel-footer" th:if="${not #lists.isEmpty(userForm.supplierInfoList)}">
+						<div class="btn-group" role="group">
+						    <button type="button" class="btn btn-primary" id="updateAllBtn">
+						    <span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span> Update All</button>
+						</div>
+					</div>
+				</div>
+				</form>
+		</div>
+	</div>
+	</main>
+
+	<footer role="contentinfo" class="site-footer navbar-primary">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					© CopyRight,All Rights Reserved 2017
+				</div>
+			</div>
+			<!-- .row -->
+		</div>
+		<!-- .container -->
+	</footer>
+</body>
+
+
+
+<!-- <body>
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<header>
+		<nav class="light-blue darken-1" role="navigation"></nav>
+	</header>
+	<main>
+	
+	
+	<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+	
+	<div class="row">
+    <form class="col s10" action="#" th:action="@{/search}" th:object="${userForm}" method="post">
+      <div class="row">
+        <div class="input-field col s6">
+          <label for="panNo" class="active">Enter your PAN number to search:</label>
+          <input placeholder="PAN Number" id="panNo" type="text"
+												th:field="*{panNo}" class="validate"
+												style="text-transform: uppercase"> 
+        </div>
+        <div class="input-field col s2">
+        <label class="red darken-1" th:if="${#fields.hasErrors('panNo')}" th:errors="*{panNo}">Name Error</label>
+        </div>
+        <div class="input-field col s2">
+          <input type="submit" class="btn" value="Search">
+        </div>
+      </div>
+		  
+    </form>
+  </div>
+	
+	<div class="container">
+					<div class="col s6 m8 offset-m2">
+						<div class="card">
+							<div class="card-content">
+								<span class="card-title black-text">Enter your PAN number
+									to search:</span>
+								<form action="#" th:action="@{/search}" th:object="${userForm}" method="post">
+									<div class="row">
+										<div class="input-field col s4">
+											<input placeholder="AAAPL1234C" id="panNo" type="text"
+												th:field="*{panNo}" class="validate"
+												style="text-transform: uppercase"> <label
+												for="panNo" class="active">PAN Number</label>
+										</div>
+										<label class="red darken-1"
+											th:if="${#fields.hasErrors('panNo')}" th:errors="*{panNo}">Name
+											Error</label>
+											
+										<div class="col s2">
+										<input type="submit" class="btn" value="Search">
+									</div>
+									</div>
+									
+								</form>
+							</div>
+
+						</div>
+					</div>
+			</div>
+
+	<div class="valign-wrapper"
+		style="width: 100%; height: 100%; position: absolute;">
+		<div class="valign" style="width: 100%;">
+			<div class="container">
+				<div class="row">
+					<div class="col s12 m6 offset-m3">
+						<div class="card">
+							<div class="card-content">
+								<span class="card-title black-text">Enter your PAN number
+									to search:</span>
+								<form action="#" th:action="@{/search}" th:object="${userForm}"
+									method="post">
+									<div class="row">
+										<div class="input-field col s12">
+											<input placeholder="AAAPL1234C" id="panNo" type="text"
+												th:field="*{panNo}" class="validate"
+												style="text-transform: uppercase"> <label
+												for="panNo" class="active">PAN Number</label>
+										</div>
+										<label class="red darken-1"
+											th:if="${#fields.hasErrors('panNo')}" th:errors="*{panNo}">Name
+											Error</label>
+									</div>
+									<div class="card-action">
+										<input type="submit" class="btn" value="Search">
+									</div>
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</main>
+	<footer class="page-footer light-blue darken-1">
+		<div class="footer-copyright">
+			<div class="container">© 2017 All Rights Reserved</div>
+		</div>
+	</footer>
+</body> -->
+
+<!-- External JS dependencies -->
+<script src="js/jquery.min.js"></script>
+<script src="js/moment-with-locales.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/select2.min.js"></script>
+<!-- Bootstrap UI JS -->
+<script src="js/bootstrap-ui.min.js"></script>
+</html>
